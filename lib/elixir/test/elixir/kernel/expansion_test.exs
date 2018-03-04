@@ -536,6 +536,11 @@ defmodule Kernel.ExpansionTest do
 
       message = ~r"cannot invoke remote function :erlang.make_ref/0 inside match"
       assert_raise CompileError, message, fn -> expand(quote(do: make_ref() = :foo)) end
+
+      assert expand(quote(do: 1 + 1 = 2) |> clean_meta([:import, :context])) == quote(do: :erlang.+(1,1) = 2)
+      assert expand(quote(do: 1 - 1 = 0) |> clean_meta([:import, :context])) == quote(do: :erlang.-(1,1) = 0)
+      assert expand(quote(do: 1 * 1 = 1) |> clean_meta([:import, :context])) == quote(do: :erlang.*(1,1) = 1)
+      assert expand(quote(do: 1 / 1 = 1) |> clean_meta([:import, :context])) == quote(do: :erlang./(1,1) = 1)
     end
 
     test "in guards" do

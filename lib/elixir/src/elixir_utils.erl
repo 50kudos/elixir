@@ -18,8 +18,13 @@ macro_name(Macro) ->
 % Operators
 
 match_op('++', 2) -> true;
+match_op('--', 2) -> true;
 match_op('+', 1) -> true;
+match_op('+', 2) -> true;
 match_op('-', 1) -> true;
+match_op('-', 2) -> true;
+match_op('*', 2) -> true;
+match_op('/', 2) -> true;
 match_op(_, _) -> false.
 
 guard_op('andalso', 2) ->
